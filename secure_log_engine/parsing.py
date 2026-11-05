@@ -181,3 +181,25 @@ def route_payload(payload) -> str:
             return "CHAINE_BRUTE"
         case _:
             return "AUTRE"
+
+
+def iter_valid_logs(lignes):
+    for ligne in lignes:
+
+        # Ignorer les lignes vides
+        if not ligne.strip():
+            continue
+
+        try:
+            # Convertir la ligne en LogRecord
+            log = parse_log_line(ligne)
+
+            # Nettoyer les données
+            log = normalize_record(log)
+
+        except LogParseError:
+            continue
+
+        # Envoyer uniquement les logs valides
+        if valid_record(log):
+            yield log
