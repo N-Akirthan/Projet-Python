@@ -1,0 +1,9 @@
+{"timestamp":"2026-11-01T08:00:00Z","level":"info","ip":"192.0.2.1","user":"alice","event":"LOGIN_SUCCESS","payload":{"action":"login","result":"ok"},"connection":["192.0.2.1",443,"tcp"]}
+{"timestamp":"2026-11-01T08:01:00Z","level":"warning","ip":"192.0.2.1","user":"alice","event":"LOGIN_FAILED","payload":{"reason":"bad_password"}}
+{"timestamp":"2026-11-01T08:02:00Z","level":"WARNING","ip":"192.0.2.1","user":"alice","event":"LOGIN_FAILED","payload":"Mot de passe incorrect"}
+{"timestamp":"2026-11-01T08:03:00Z","level":"WARNING","ip":"192.0.2.1","user":"alice","event":"LOGIN_FAILED","payload":"Troisième tentative"}
+2026-11-01T08:04:00Z|ERROR|203.0.113.66|bob|API_ERROR|{"level":"ERROR","code":500}
+{"timestamp":"2026-11-01T08:04:30Z","level":"CRITICAL","ip":"203.0.113.66","user":"bob","event":"FIREWALL_BLOCK","payload":{"detail":"Accès non autorisé"}}
+
+LIGNE_MAL_FORMEE
+{"timestamp":"2026-11-01T08:05:00Z","level":"ERROR","ip":"pas-une-ip","user":"test","event":"BAD_IP","payload":"Rejet"}

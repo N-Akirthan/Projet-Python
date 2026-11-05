@@ -1,0 +1,8 @@
+{"timestamp":"2026-11-01T08:05:10Z","level":"INFO","ip":"192.0.2.1","user":"alice","event":"LOGIN_SUCCESS","payload":"Connexion rétablie"}
+("2026-11-01T08:06:00Z", "warning", "198.51.100.4", "carol", "CONNECTION", ("198.51.100.4", 22, "SSH"))
+2026-11-01T08:06:30Z|INFO|198.51.100.5|david|HTTP_REQUEST|GET /health HTTP/1.1
+{"timestamp":"2026-11-01T08:07:00Z","level":"WARNING","ip":"203.0.113.66","user":"bob","event":"LOGIN_FAILED","payload":"Mauvais mot de passe"}
+{"timestamp":"2026-11-01T08:07:30Z","level":"WARNING","ip":"203.0.113.66","user":"bob","event":"LOGIN_FAILED","payload":"Mauvais mot de passe"}
+{"timestamp":"2026-11-01T08:08:00Z","level":"WARNING","ip":"203.0.113.66","user":"bob","event":"LOGIN_FAILED","payload":"Mauvais mot de passe"}
+{"timestamp":"2026-11-01T08:08:30Z","level":"WARNING","ip":"203.0.113.66","user":"bob","event":"LOGIN_FAILED","payload":"Nouveau refus (pas de doublon d'alerte)"}
+{"timestamp":"2026-11-01T08:09:00Z","level":"ERROR","ip":"198.51.100.4","user":"carol","event":"DISK_ERROR","payload":{"level":"ERROR","code":"E42"}}
