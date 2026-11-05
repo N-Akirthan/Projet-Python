@@ -1,0 +1,9 @@
+[project]
+name = "ing3-logs-partie1"
+version = "0.1.0"
+description = "Partie 1 du projet ING3 : ingestion et parsing des logs"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.uv]
+package = false

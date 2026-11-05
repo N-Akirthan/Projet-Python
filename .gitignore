@@ -218,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+*:Zone.Identifier
+
+# Environnement virtuel
+.venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Fichiers de sécurité Windows
+*:Zone.Identifier
+
+# Fichiers temporaires
+.pytest_cache/
