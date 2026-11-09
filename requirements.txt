@@ -1,0 +1,16 @@
+# ==============================================================================
+# Fichier de dépendances - Environnement Virtuel (venv)
+# Projet: Engine de traitement et d'analyse de flux de données sécurisé en temps réel
+# ==============================================================================
+#
+# Le cœur du moteur (Module 1 : ingestion, modélisation et parsing streaming)
+# s'appuie exclusivement sur la bibliothèque standard Python 3.10+ pour
+# maximiser les performances et minimiser l'empreinte mémoire.
+#
+# Pour réinstaller l'environnement :
+#   python -m venv .venv
+#   source .venv/bin/activate       # (ou .venv\Scripts\Activate sous Windows)
+#   pip install -r requirements.txt
+#
+# (Généré / synchronisé via pip freeze)
+

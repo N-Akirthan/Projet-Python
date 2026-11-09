@@ -1,9 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "ing3-logs-partie1"
+name = "secure-log-engine"
 version = "0.1.0"
-description = "Partie 1 du projet ING3 : ingestion et parsing des logs"
+description = "Engine de traitement et d'analyse de flux de données sécurisé en temps réel"
+authors = [{ name = "Équipe ING3" }]
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []
 
-[tool.uv]
-package = false
+[project.scripts]
+secure-log-engine = "main:main"

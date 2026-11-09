@@ -8,8 +8,9 @@ import ipaddress
 import json
 from dataclasses import replace
 from datetime import datetime, timezone
+from typing import Any, Iterable, Iterator
 
-from .models import LogRecord
+from .models import Connection, LogRecord
 
 NIVEAUX_VALIDES = {"INFO", "WARNING", "ERROR", "CRITICAL"}
 TAILLE_MAX_LIGNE = 1_000_000
@@ -19,7 +20,7 @@ class LogParseError(ValueError):
     """Erreur lorsqu'une ligne de log est incorrecte."""
 
 
-def read_line_fields(ligne: str) -> dict:
+def read_line_fields(ligne: str) -> dict[str, Any]:
     """Lire une ligne et renvoyer un dictionnaire de ses champs."""
     ligne = ligne.strip()
 
@@ -78,7 +79,7 @@ def read_date(texte: str) -> datetime:
     return date.astimezone(timezone.utc)
 
 
-def read_connection(valeur):
+def read_connection(valeur: Any) -> Connection | None:
     """Convertir une connexion [IP, port, protocole] en tuple immuable."""
     if valeur is None:
         return None
@@ -166,7 +167,7 @@ def valid_record(log: LogRecord) -> bool:
     return True
 
 
-def route_payload(payload) -> str:
+def route_payload(payload: Any) -> str:
     """Classer le contenu d'un log selon son format (match-case)."""
     match payload:
         case {"level": "ERROR", "code": code}:
@@ -183,23 +184,17 @@ def route_payload(payload) -> str:
             return "AUTRE"
 
 
-def iter_valid_logs(lignes):
+def iter_valid_logs(lignes: Iterable[str]) -> Iterator[LogRecord]:
+    """Générateur mémoire extrayant uniquement les logs valides et normalisés."""
     for ligne in lignes:
-
-        # Ignorer les lignes vides
         if not ligne.strip():
             continue
 
         try:
-            # Convertir la ligne en LogRecord
             log = parse_log_line(ligne)
-
-            # Nettoyer les données
             log = normalize_record(log)
-
         except LogParseError:
             continue
 
-        # Envoyer uniquement les logs valides
         if valid_record(log):
             yield log
