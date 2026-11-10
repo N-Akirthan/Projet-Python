@@ -28,5 +28,3 @@ def router_payload(payload):
             return "CHAINE_BRUTE"
         case _:
             return "AUTRE"
-
-o
