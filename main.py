@@ -81,7 +81,7 @@ def traiter_les_logs(lignes):
     if not alertes:
         print("Aucune alerte détectée.")
     else:
-        print(f"Alertes force brute ({len(alertes)}) :")
+        print(f"Alertes brute force ({len(alertes)}) :")
     for alerte in alertes:
         print(f"{alerte.timestamp} | IP: {alerte.ip} | User: {alerte.user}")
     print("\nOpération d'ensemble mathématique:\n")
