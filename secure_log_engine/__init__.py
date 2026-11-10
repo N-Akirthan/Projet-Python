@@ -18,11 +18,22 @@ from .parsing import (
     valid_record,
 )
 
+from .analysis import (
+    comparer_blacklist,
+    compter_occurrences,
+    detecter_force_brute,
+    ips_en_erreur,
+)
+
 __all__ = [
     "Connection",
     "Finding",
     "LogRecord",
     "Payload",
+    "comparer_blacklist",
+    "compter_occurrences",
+    "detecter_force_brute",
+    "ips_en_erreur",
     "iter_file_lines",
     "iter_sources",
     "simulate_logs",

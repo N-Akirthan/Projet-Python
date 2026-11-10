@@ -30,8 +30,5 @@ class Finding:
     """Format commun des futures alertes (utilisé par la personne 3)."""
 
     timestamp: datetime
-    code: str
-    level: str
     ip: str
     user: str
-    message: str
