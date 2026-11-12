@@ -19,6 +19,7 @@ Projet-Python/
 │
 ├── main.py                     # Point d'entrée principal pilotant le pipeline
 ├── demo_personne1.py           # Script de démonstration autonome
+├── rapport.ipynb               # Rapport détaillé et démonstration
 ├── requirements.txt            # Dépendances pour l'environnement virtuel (venv)
 ├── pyproject.toml              # Métadonnées du package Python
 ├── README.md                   # Documentation du projet
@@ -27,14 +28,19 @@ Projet-Python/
 │   ├── __init__.py             # Exports du package
 │   ├── ingestion.py            # Générateurs mémoire (yield / yield from)
 │   ├── models.py               # Structures de données (LogRecord, tuples)
-│   └── parsing.py              # Découpage, normalisation et validation des lignes
+│   ├── parsing.py              # Découpage, normalisation et validation des lignes
+│   ├── analysis.py             # Ensembles, compteurs et détection de force brute
+│   ├── pipeline.py             # Filtrage, normalisation et routage (map / filter)
+│   ├── rules.py                # Moteur de règles (*args / **kwargs)
+│   └── audit.py                # Introspection globals() / locals()
 │
 ├── data/                       # Fichiers de logs de test
 │   ├── sample_1.log
 │   └── sample_2.log
 │
 └── tests/                      # Tests unitaires automatisés
-    └── test_partie1.py
+    ├── test_partie1.py
+    └── test_partie4.py
 ```
 
 ---
@@ -59,7 +65,7 @@ source .venv/bin/activate
 
 ### Dépendances
 
-Le Module 1 utilise exclusivement la bibliothèque standard de Python 3.10+. Le fichier `requirements.txt` est prêt pour `pip freeze` :
+Le moteur utilise exclusivement la bibliothèque standard de Python 3.10+. Le fichier `requirements.txt` est prêt pour `pip freeze` :
 ```bash
 pip install -r requirements.txt
 ```
@@ -81,7 +87,13 @@ python main.py --simulate 50
 
 ---
 
-## 5. Lancer les Tests
+## 5. Module 4 — Moteur de règles et audit
+
+`apply_security_rules(*rules, **config)` reçoit les règles comme des fonctions (objets de première classe) et leur configuration dynamique (`seuil`, `blacklist`, `evenements_sensibles`, `logs`).
+
+Trois règles sont fournies : force brute, IP blacklistée, événement sensible. Le module `audit` appelle `globals()` et `locals()` puis imprime les variables présentes en mémoire. `python main.py` enchaîne ce bilan après l'analyse du module 3.
+
+## 6. Lancer les Tests
 
 Pour vérifier que tout fonctionne :
 ```powershell

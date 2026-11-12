@@ -3,7 +3,14 @@ from collections import defaultdict
 from pathlib import Path
 
 from secure_log_engine.analysis import comparer_blacklist, detecter_force_brute
+from secure_log_engine.audit import auditer_contexte, formater_rapport_audit
 from secure_log_engine.ingestion import iter_sources, simulate_logs
+from secure_log_engine.rules import (
+    apply_security_rules,
+    regle_evenements_sensibles,
+    regle_force_brute,
+    regle_ip_blacklist,
+)
 from secure_log_engine.parsing import (
     LogParseError,
     normalize_record,
@@ -25,6 +32,7 @@ def traiter_les_logs(lignes):
     ips_actives = set()
     ips_erreur = set()
     par_niveau = defaultdict(int)
+    logs_valides = []
 
     print("--- Démarrage de la lecture des logs ---")
 
@@ -62,6 +70,7 @@ def traiter_les_logs(lignes):
                 type_payload = route_payload(log.payload)
                 print(f"[{log.level}] {log.timestamp} | IP: {log.ip} | User: {log.user} | Event: {log.event} ({type_payload})")
 
+            logs_valides.append(log)
             yield log
 
     alertes = detecter_force_brute(flux_valide())
@@ -90,6 +99,32 @@ def traiter_les_logs(lignes):
     print(f"IP  ^  blacklistées  : {ensembles['difference_symetrique'] or 'Aucune'}")
     print(f"IP  -  blacklistées  : {ensembles['difference'] or 'Aucune'}")
 
+    # Moteur de règles (Module 4) : les règles sont passées comme des fonctions.
+    evenements_sensibles = frozenset({"FIREWALL_BLOCK", "DISK_ERROR"})
+    constats = apply_security_rules(
+        regle_force_brute,
+        regle_ip_blacklist,
+        regle_evenements_sensibles,
+        logs=logs_valides,
+        seuil=3,
+        blacklist=BLACKLIST,
+        evenements_sensibles=evenements_sensibles,
+    )
+
+    print("\n--- Moteur de règles ---")
+    if not constats:
+        print("Aucune règle n'a produit de constat.")
+    else:
+        print(f"Constats ({len(constats)}) :")
+        for constat in constats:
+            print(
+                f"[{constat.rule}] {constat.timestamp} | IP: {constat.ip} | "
+                f"User: {constat.user} | {constat.detail}"
+            )
+
+    print("\n--- Audit de contexte ---")
+    rapport = auditer_contexte(locals())
+    print(formater_rapport_audit(rapport))
 
 
 def main():
