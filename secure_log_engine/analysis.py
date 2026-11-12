@@ -62,7 +62,6 @@ def detecter_force_brute(
 
             if log.event == "LOGIN_SUCCESS":
                 deja_alertee[cle] = False
-                historique[cle].clear()
                 continue
 
             if len(historique[cle]) < seuil or deja_alertee[cle]:

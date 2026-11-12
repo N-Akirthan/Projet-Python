@@ -27,8 +27,10 @@ class LogRecord:
 
 @dataclass(frozen=True)
 class Finding:
-    """Format commun des futures alertes (utilisé par la personne 3)."""
+    """Alerte produite par l'analyse ou par une règle de sécurité."""
 
     timestamp: datetime
     ip: str
     user: str
+    rule: str = ""
+    detail: str = ""
