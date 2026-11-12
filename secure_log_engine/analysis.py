@@ -38,7 +38,7 @@ def compter_occurrences(
 def detecter_force_brute(
     logs: Iterable[LogRecord],
     seuil: int = 3,
-    taille_cycle: int = 50,
+    taille_cycle: int = 20,
 ) -> list[Finding]:
     if seuil < 1 or taille_cycle < 1:
         raise ValueError("seuil et taille_cycle doivent être >= 1.")
@@ -62,6 +62,7 @@ def detecter_force_brute(
 
             if log.event == "LOGIN_SUCCESS":
                 deja_alertee[cle] = False
+                historique[cle].clear()
                 continue
 
             if len(historique[cle]) < seuil or deja_alertee[cle]:
